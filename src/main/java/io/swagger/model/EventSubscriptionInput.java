@@ -6,6 +6,10 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.springframework.validation.annotation.Validated;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
 
@@ -15,11 +19,15 @@ import javax.validation.constraints.*;
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2018-12-22T19:02:40.482+03:00")
 
+@Entity
+//@Table
 public class EventSubscriptionInput   {
   @JsonProperty("callback")
+  @Column
   private String callback = null;
 
   @JsonProperty("query")
+  @Column
   private String query = null;
 
   public EventSubscriptionInput callback(String callback) {

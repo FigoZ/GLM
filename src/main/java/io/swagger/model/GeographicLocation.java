@@ -9,6 +9,8 @@ import io.swagger.model.GeographicPoint;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.validation.annotation.Validated;
+
+import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
 
@@ -19,21 +21,28 @@ import javax.validation.constraints.*;
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2018-12-22T19:02:40.482+03:00")
 
+@Entity
 public class GeographicLocation   {
   @JsonProperty("id")
+  @Id
+  @GeneratedValue(strategy = GenerationType.AUTO)
   private String id = null;
 
   @JsonProperty("href")
+  @Column
   private String href = null;
 
   @JsonProperty("name")
+  @Column
   private String name = null;
 
   @JsonProperty("type")
+  @Column
   private String type = null;
 
   @JsonProperty("geographicPoint")
   @Valid
+  @OneToMany (mappedBy = "geographicLocation")
   private List<GeographicPoint> geographicPoint = null;
 
   public GeographicLocation id(String id) {
