@@ -16,6 +16,7 @@ import javax.validation.constraints.*;
 
 /**
  * This resource is used to manage the request and response to retrieve the relation between two geographic locations.
+ * Этот ресурс используется для управления запросом и ответом для получения связи между двумя географическими местоположениями.
  */
 @ApiModel(description = "This resource is used to manage the request and response to retrieve the relation between two geographic locations.")
 @Validated

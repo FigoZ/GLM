@@ -19,15 +19,14 @@ import javax.validation.constraints.*;
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2018-12-22T19:02:40.482+03:00")
 
-@Entity
-//@Table
+
 public class EventSubscriptionInput   {
   @JsonProperty("callback")
-  @Column
+
   private String callback = null;
 
   @JsonProperty("query")
-  @Column
+
   private String query = null;
 
   public EventSubscriptionInput callback(String callback) {

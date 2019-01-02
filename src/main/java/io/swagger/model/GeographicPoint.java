@@ -13,23 +13,20 @@ import javax.validation.constraints.*;
 
 /**
  * A GeoPoint defines a geographic point through coordinates.
+ * Географическая точка с координатами
  */
 @ApiModel(description = "A GeoPoint defines a geographic point through coordinates.")
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2018-12-22T19:02:40.482+03:00")
 
 @Entity
-public class GeographicPoint   {
-  //скорей всего нужен и ID, как у всех string
-  @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
-  private String id = null;
+public class GeographicPoint extends BasePojo  {
 
-  @JsonProperty("accuracy")
-  @Column
+  @JsonProperty("accuracy")  //точность
+ @Column
   private String accuracy = null;
 
-  @JsonProperty("spatialRef")
+  @JsonProperty("spatialRef") //пространственный ref
   @Column
   private String spatialRef = null;
 
@@ -44,11 +41,6 @@ public class GeographicPoint   {
   @JsonProperty("z")
   @Column
   private String z = null;
-
-  //добавил поле для связки ManyToOne
-  @ManyToOne
-  @JoinColumn(name = "id")
-  private GeographicLocation geographicLocation;
 
   public GeographicPoint accuracy(String accuracy) {
     this.accuracy = accuracy;

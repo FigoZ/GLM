@@ -11,6 +11,7 @@ import javax.validation.constraints.*;
 
 /**
  * Object, the location is retrieved for
+ * Объект, местоположение извлекается для
  */
 @ApiModel(description = "Object, the location is retrieved for")
 @Validated

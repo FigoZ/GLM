@@ -8,6 +8,8 @@ import io.swagger.annotations.ApiModelProperty;
 import io.swagger.model.GeographicPoint;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.hibernate.annotations.GenericGenerator;
 import org.springframework.validation.annotation.Validated;
 
 import javax.persistence.*;
@@ -16,6 +18,8 @@ import javax.validation.constraints.*;
 
 /**
  * Structured textual way of describing a geographic location. A geographic location allows describing through coordinate(s), a point, a line or a space.
+ * Структурированный текстовый способ описания географического положения.
+ * Географическое положение позволяет описывать с помощью координат (ы), точки, линии или пространства.
  */
 @ApiModel(description = "Structured textual way of describing a geographic location. A geographic location allows describing through coordinate(s), a point, a line or a space.")
 @Validated
@@ -25,7 +29,9 @@ import javax.validation.constraints.*;
 public class GeographicLocation   {
   @JsonProperty("id")
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
+  @GeneratedValue(generator = "UUID")
+  @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
+
   private String id = null;
 
   @JsonProperty("href")
@@ -42,7 +48,7 @@ public class GeographicLocation   {
 
   @JsonProperty("geographicPoint")
   @Valid
-  @OneToMany (mappedBy = "geographicLocation")
+  @ElementCollection
   private List<GeographicPoint> geographicPoint = null;
 
   public GeographicLocation id(String id) {
