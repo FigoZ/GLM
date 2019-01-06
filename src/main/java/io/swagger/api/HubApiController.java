@@ -1,12 +1,16 @@
 package io.swagger.api;
 
+import com.fasterxml.jackson.databind.util.BeanUtil;
 import io.swagger.model.Error;
 import io.swagger.model.EventSubscription;
 import io.swagger.model.EventSubscriptionInput;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.annotations.*;
+import io.swagger.service.EventSubscriptionServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -33,6 +37,9 @@ public class HubApiController implements HubApi {
 
     private final HttpServletRequest request;
 
+    @Autowired
+    private EventSubscriptionServiceImpl eventSubscriptionService;
+
     @org.springframework.beans.factory.annotation.Autowired
     public HubApiController(ObjectMapper objectMapper, HttpServletRequest request) {
         this.objectMapper = objectMapper;
@@ -41,11 +48,18 @@ public class HubApiController implements HubApi {
 
     public ResponseEntity<EventSubscription> registerListener(@ApiParam(value = "Data containing the callback endpoint to deliver the information" ,required=true )  @Valid @RequestBody EventSubscriptionInput data) {
         String accept = request.getHeader("Accept");
+
         if (accept != null && accept.contains("application/json")) {
+
             try {
-                return new ResponseEntity<EventSubscription>(objectMapper.readValue("{  \"query\" : \"query\",  \"callback\" : \"callback\",  \"id\" : \"id\"}", EventSubscription.class), HttpStatus.NOT_IMPLEMENTED);
-            } catch (IOException e) {
+                EventSubscription eventSubscription = new EventSubscription();
+                BeanUtils.copyProperties(data,eventSubscription);
+                eventSubscriptionService.save(eventSubscription);
+              //  return new ResponseEntity<EventSubscription>(objectMapper.readValue("{  \"query\" : \"query\",  \"callback\" : \"callback\",  \"id\" : \"id\"}", EventSubscription.class), HttpStatus.NOT_IMPLEMENTED);
+                return new ResponseEntity<EventSubscription>(eventSubscription, HttpStatus.OK);
+            } catch (Exception e) {
                 log.error("Couldn't serialize response for content type application/json", e);
+                System.out.println("===========Error===== " +e);
                 return new ResponseEntity<EventSubscription>(HttpStatus.INTERNAL_SERVER_ERROR);
             }
         }
@@ -57,5 +71,6 @@ public class HubApiController implements HubApi {
         String accept = request.getHeader("Accept");
         return new ResponseEntity<Void>(HttpStatus.NOT_IMPLEMENTED);
     }
+
 
 }
