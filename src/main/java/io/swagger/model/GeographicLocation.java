@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.springframework.validation.annotation.Validated;
 
 import javax.persistence.*;
@@ -47,7 +49,9 @@ public class GeographicLocation   {
 
   @JsonProperty("geographicPoint")
   @Valid
-  @ElementCollection
+  //@ElementCollection
+  @OneToMany (cascade = CascadeType.ALL)
+  @LazyCollection(LazyCollectionOption.FALSE)
   private List<GeographicPoint> geographicPoint = null;
 
   public GeographicLocation id(String id) {

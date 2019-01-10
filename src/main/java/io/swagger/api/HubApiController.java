@@ -69,7 +69,17 @@ public class HubApiController implements HubApi {
 
     public ResponseEntity<Void> unregisterListener(@ApiParam(value = "The id of the registered listener",required=true) @PathVariable("id") String id) {
         String accept = request.getHeader("Accept");
-        return new ResponseEntity<Void>(HttpStatus.NOT_IMPLEMENTED);
+
+        try{
+            eventSubscriptionService.del(id);
+            log.info("Deleted id "+id);
+            return new ResponseEntity<Void>(HttpStatus.OK);
+        }catch (Exception e){
+            log.error("Couldn't deleted id "+id, e);
+            System.out.println("=====DELETE======Error===== " +e);
+            return new ResponseEntity<Void>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+       // return new ResponseEntity<Void>(HttpStatus.NOT_IMPLEMENTED);
     }
 
 

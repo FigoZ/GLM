@@ -46,6 +46,19 @@ public class EventSubscriptionServiceImpl extends newBaseServiceImpl {
         }
     }
 
+    @Transactional(propagation = Propagation.REQUIRES_NEW, isolation = Isolation.REPEATABLE_READ)
+  //  @SuppressWarnings("unchecked")
+    public void del(String id) {
+        log.info("delete(): " + id);
+//    EventSubscription ES= eventSubscriptionDao.get(id);
+//        System.out.println(ES.getCallback()+"==========getCallback===========");
+//       eventSubscriptionDao.delete(ES);
+       eventSubscriptionDao.delete(eventSubscriptionDao.get(id));
+    }
+
+
+
+
 //    @Transactional(propagation = Propagation.REQUIRED)
 //    public EventSubscription retrieve(String id) {
 //

@@ -7,4 +7,5 @@ public abstract class newBaseServiceImpl <T> {
     private static Logger log = Logger.getLogger(newBaseServiceImpl.class.getName());
 
     public abstract List<T> list();
+
 }

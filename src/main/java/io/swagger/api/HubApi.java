@@ -47,7 +47,7 @@ public interface HubApi {
         @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
     @RequestMapping(value = "/hub/{id}",
         produces = { "application/json" }, 
-        consumes = { "application/json" },
+      //  consumes = { "application/json" },
         method = RequestMethod.DELETE)
     ResponseEntity<Void> unregisterListener(@ApiParam(value = "The id of the registered listener",required=true) @PathVariable("id") String id);
 

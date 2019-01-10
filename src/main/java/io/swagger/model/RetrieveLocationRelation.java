@@ -9,8 +9,14 @@ import io.swagger.model.GeographicLocation;
 import io.swagger.model.GeographicLocationRef;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.threeten.bp.OffsetDateTime;
 import org.springframework.validation.annotation.Validated;
+
+import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
 
@@ -22,33 +28,46 @@ import javax.validation.constraints.*;
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2018-12-22T19:02:40.482+03:00")
 
+@Entity
 public class RetrieveLocationRelation   {
   @JsonProperty("id")
+  @Id
+  @GeneratedValue(generator = "UUID")
+  @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
   private String id = null;
 
   @JsonProperty("href")
+  @Column
   private String href = null;
 
   @JsonProperty("status")
+  @Column
   private String status = null;
 
   @JsonProperty("locationA")
+  @Column
   private String locationA = null;
 
   @JsonProperty("locationB")
+  @Column
   private String locationB = null;
 
   @JsonProperty("distance")
+  @Column
   private String distance = null;
 
   @JsonProperty("time")
+  @Column
   private OffsetDateTime time = null;
 
   @JsonProperty("intersection")
   @Valid
+  @OneToMany (cascade = CascadeType.ALL)
+  @LazyCollection(LazyCollectionOption.FALSE)
   private List<GeographicLocation> intersection = null;
 
   @JsonProperty("geographicLocation")
+  @OneToOne (cascade = CascadeType.ALL)
   private GeographicLocationRef geographicLocation = null;
 
   public RetrieveLocationRelation id(String id) {

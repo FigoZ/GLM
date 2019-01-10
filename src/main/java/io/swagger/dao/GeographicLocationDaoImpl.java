@@ -1,15 +1,20 @@
 package io.swagger.dao;
 
+import io.swagger.model.GeographicLocation;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.logging.Logger;
 
 @Repository
 public class GeographicLocationDaoImpl <T> extends newBaseDaoImpl{
     private static Logger log = Logger.getLogger(GeographicLocationDaoImpl.class.getName());
+
+    static Class<GeographicLocation> tClass;
+    final static GeographicLocation GL = new GeographicLocation();
 
     @Autowired
     public GeographicLocationDaoImpl(SessionFactory sessionFactory) {
@@ -21,6 +26,11 @@ public class GeographicLocationDaoImpl <T> extends newBaseDaoImpl{
     public List<T> find() {
         log.info("Call find()");
         return openSession().createQuery("from GeographicLocation").list();
+    }
+
+    @Override
+    public GeographicLocation get(Serializable id) {
+        return openSession().find(GL.getClass(), id);
     }
 
     public void save(T item) {

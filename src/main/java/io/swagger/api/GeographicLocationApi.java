@@ -34,7 +34,7 @@ public interface GeographicLocationApi {
         @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
     @RequestMapping(value = "/geographicLocation",
         produces = { "application/json" }, 
-        consumes = { "application/json" },
+       // consumes = { "application/json" },
         method = RequestMethod.GET)
     ResponseEntity<List<GeographicLocation>> listGeographicLocation(@ApiParam(value = "Comma separated properties to display in response") @Valid @RequestParam(value = "fields", required = false) String fields,@ApiParam(value = "For filtering: A string. Name of the geo location.") @Valid @RequestParam(value = "name", required = false) String name,@ApiParam(value = "For filtering: A string. Type of the geographic location - one of: point, line, graph, ring polygon") @Valid @RequestParam(value = "type", required = false) String type,@ApiParam(value = "For filtering: A string. Accuracy of the coordinate specified.") @Valid @RequestParam(value = "geographicPoint.accuracy", required = false) String geographicPointAccuracy,@ApiParam(value = "For filtering: A string. Geocoding referential.") @Valid @RequestParam(value = "geographicPoint.spatialRef", required = false) String geographicPointSpatialRef,@ApiParam(value = "For filtering: A string. x coordinate (usually latitude).") @Valid @RequestParam(value = "geographicPoint.x", required = false) String geographicPointX,@ApiParam(value = "For filtering: A string. y coordinate (usually longitude).") @Valid @RequestParam(value = "geographicPoint.y", required = false) String geographicPointY,@ApiParam(value = "For filtering: A string. z coordinate (usually elevation).") @Valid @RequestParam(value = "geographicPoint.z", required = false) String geographicPointZ);
 
@@ -47,7 +47,7 @@ public interface GeographicLocationApi {
         @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
     @RequestMapping(value = "/geographicLocation/{id}",
         produces = { "application/json" }, 
-        consumes = { "application/json" },
+       // consumes = { "application/json" },
         method = RequestMethod.GET)
     ResponseEntity<List<GeographicLocation>> retrieveGeographicLocation(@ApiParam(value = "Identifier of the Geographic Location",required=true) @PathVariable("id") String id);
 

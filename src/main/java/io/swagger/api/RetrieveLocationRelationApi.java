@@ -36,7 +36,7 @@ public interface RetrieveLocationRelationApi {
         @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
     @RequestMapping(value = "/retrieveLocationRelation",
         produces = { "application/json" }, 
-        consumes = { "application/json" },
+      //  consumes = { "application/json" },
         method = RequestMethod.POST)
     ResponseEntity<RetrieveLocationRelation> createRetrieveLocationRelation(@ApiParam(value = "The Retrieve Location Relation to be created" ,required=true )  @Valid @RequestBody RetrieveLocationRelationCreate retrieveLocationRelation);
 
@@ -48,7 +48,7 @@ public interface RetrieveLocationRelationApi {
         @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
     @RequestMapping(value = "/retrieveLocationRelation",
         produces = { "application/json" }, 
-        consumes = { "application/json" },
+      //  consumes = { "application/json" },
         method = RequestMethod.GET)
     ResponseEntity<List<RetrieveLocationRelation>> listRetrieveLocationRelation(@ApiParam(value = "Comma separated properties to display in response") @Valid @RequestParam(value = "fields", required = false) String fields,@ApiParam(value = "For filtering: A string. Status of the task (inProgress, terminatedWithErrror, done).") @Valid @RequestParam(value = "status", required = false) String status,@ApiParam(value = "For filtering: Reference to a location") @Valid @RequestParam(value = "locationA", required = false) String locationA,@ApiParam(value = "For filtering: Reference to a location") @Valid @RequestParam(value = "locationB", required = false) String locationB,@ApiParam(value = "For filtering: Calculated distance between location A and location B") @Valid @RequestParam(value = "distance", required = false) String distance,@ApiParam(value = "For filtering: Timestamp of end of task execution") @Valid @RequestParam(value = "time", required = false) OffsetDateTime time,@ApiParam(value = "For filtering: A string. Name of the geo location.") @Valid @RequestParam(value = "intersection.name", required = false) String intersectionName,@ApiParam(value = "For filtering: A string. Type of the geographic location - one of: point, line, graph, ring polygon") @Valid @RequestParam(value = "intersection.type", required = false) String intersectionType);
 
@@ -61,7 +61,7 @@ public interface RetrieveLocationRelationApi {
         @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
     @RequestMapping(value = "/retrieveLocationRelation/{id}",
         produces = { "application/json" }, 
-        consumes = { "application/json" },
+      //  consumes = { "application/json" },
         method = RequestMethod.GET)
     ResponseEntity<List<RetrieveLocationRelation>> retrieveRetrieveLocationRelation(@ApiParam(value = "Identifier of the Retrieve Location Relation",required=true) @PathVariable("id") String id);
 
