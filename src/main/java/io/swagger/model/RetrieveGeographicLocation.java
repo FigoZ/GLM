@@ -6,8 +6,11 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import io.swagger.model.GeographicLocation;
+import org.hibernate.annotations.GenericGenerator;
 import org.threeten.bp.OffsetDateTime;
 import org.springframework.validation.annotation.Validated;
+
+import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
 
@@ -18,26 +21,36 @@ import javax.validation.constraints.*;
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2018-12-22T19:02:40.482+03:00")
 
+@Entity
 public class RetrieveGeographicLocation   {
   @JsonProperty("id")
+  @Id
+  @GeneratedValue(generator = "UUID")
+  @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
   private String id = null;
 
   @JsonProperty("href")
+  @Column
   private String href = null;
 
   @JsonProperty("status")
+  @Column
   private String status = null;
 
   @JsonProperty("requestedAccuracy")
+  @Column
   private Float requestedAccuracy = null;
 
   @JsonProperty("time")
+  @Column
   private OffsetDateTime time = null;
 
   @JsonProperty("geographicLocation")
+  @OneToOne(cascade = CascadeType.ALL)
   private GeographicLocation geographicLocation = null;
 
   @JsonProperty("thing")
+  @OneToOne (cascade = CascadeType.ALL)
   private Object thing = null;
 
   public RetrieveGeographicLocation id(String id) {
