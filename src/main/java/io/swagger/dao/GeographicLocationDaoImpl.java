@@ -36,4 +36,16 @@ public class GeographicLocationDaoImpl <T> extends newBaseDaoImpl{
     public void save(T item) {
         openSession().saveOrUpdate(item);
     }
+
+    //test===============
+  /*  public List<T> findByCriteria(List findResurses) {
+        log.info("Call findfindByCriteria()");
+
+        String hql = "FROM RetrieveGeographicLocation RGL WHERE RGL.thing.type like :f_type";
+
+        Query query = openSession().createQuery(hql);
+        query.setParameter("f_type",findResurses.get(4));
+
+        return query.list();
+    }*/
 }

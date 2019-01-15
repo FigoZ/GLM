@@ -36,7 +36,7 @@ public interface RetrieveGeographicLocationApi {
         @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
     @RequestMapping(value = "/retrieveGeographicLocation",
         produces = { "application/json" }, 
-        consumes = { "application/json" },
+       // consumes = { "application/json" },
         method = RequestMethod.POST)
     ResponseEntity<RetrieveGeographicLocation> createRetrieveGeographicLocation(@ApiParam(value = "The Retrieve Geographic Location to be created" ,required=true )  @Valid @RequestBody RetrieveGeographicLocationCreate retrieveGeographicLocation);
 
@@ -61,7 +61,7 @@ public interface RetrieveGeographicLocationApi {
         @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
     @RequestMapping(value = "/retrieveGeographicLocation/{id}",
         produces = { "application/json" }, 
-        consumes = { "application/json" },
+      //  consumes = { "application/json" },
         method = RequestMethod.GET)
     ResponseEntity<List<RetrieveGeographicLocation>> retrieveRetrieveGeographicLocation(@ApiParam(value = "Identifier of the Retrieve Geographic Location",required=true) @PathVariable("id") String id);
 

@@ -35,8 +35,6 @@ public class RetrieveGeographicLocationServiceImpl<T> extends newBaseServiceImpl
         return (List<T>) List.of(RGLDao.get(id));
     }
 
-
-
     @Transactional(propagation = Propagation.REQUIRES_NEW, isolation = Isolation.REPEATABLE_READ)
     public void save(T item) {
         log.info("save(): " + item);
@@ -56,5 +54,9 @@ public class RetrieveGeographicLocationServiceImpl<T> extends newBaseServiceImpl
         RGLDao.save(item);
     }
 
-
+    @Transactional(propagation =  Propagation.REQUIRED, readOnly = true)
+    public List<T> findByCriteria(List findResurses) {
+        log.info(" Find bu Criteria : " );
+        return (List<T>) List.of(RGLDao.findByCriteria(findResurses));
+    }
 }
