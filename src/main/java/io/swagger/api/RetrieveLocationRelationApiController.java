@@ -25,6 +25,7 @@ import javax.validation.constraints.*;
 import javax.validation.Valid;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2018-12-22T19:02:40.482+03:00")
 
@@ -90,8 +91,19 @@ public class RetrieveLocationRelationApiController implements RetrieveLocationRe
         String accept = request.getHeader("Accept");
         if (accept != null && accept.contains("application/json")) {
             try {
-                // TODO: 10.01.2019 возврат всего, добавить возврат по полям
-                return new ResponseEntity<List<RetrieveLocationRelation>>(serviceRLR.list(),HttpStatus.OK);
+                if (fields!=null){
+                    return new ResponseEntity<List<RetrieveLocationRelation>>(serviceRLR.list(),HttpStatus.OK);}
+                else{
+                    List findResurses = new ArrayList();
+                    findResurses.add(checkFind(status));
+                    findResurses.add(checkFind(locationA));
+                    findResurses.add(checkFind(locationB));
+                    findResurses.add(checkFind(distance));
+                    findResurses.add(checkFind(intersectionName));
+                    findResurses.add(checkFind(intersectionType));
+
+                    return new ResponseEntity<List<RetrieveLocationRelation>>(serviceRLR.findByCriteria(findResurses),HttpStatus.OK);
+                }
               //  return new ResponseEntity<List<RetrieveLocationRelation>>(objectMapper.readValue("[ {  \"distance\" : \"distance\",  \"geographicLocation\" : {    \"id\" : \"id\",    \"href\" : \"href\"  },  \"intersection\" : [ {    \"name\" : \"name\",    \"geographicPoint\" : [ {      \"spatialRef\" : \"spatialRef\",      \"x\" : \"x\",      \"accuracy\" : \"accuracy\",      \"y\" : \"y\",      \"z\" : \"z\"    }, {      \"spatialRef\" : \"spatialRef\",      \"x\" : \"x\",      \"accuracy\" : \"accuracy\",      \"y\" : \"y\",      \"z\" : \"z\"    } ],    \"id\" : \"id\",    \"href\" : \"href\",    \"type\" : \"type\"  }, {    \"name\" : \"name\",    \"geographicPoint\" : [ {      \"spatialRef\" : \"spatialRef\",      \"x\" : \"x\",      \"accuracy\" : \"accuracy\",      \"y\" : \"y\",      \"z\" : \"z\"    }, {      \"spatialRef\" : \"spatialRef\",      \"x\" : \"x\",      \"accuracy\" : \"accuracy\",      \"y\" : \"y\",      \"z\" : \"z\"    } ],    \"id\" : \"id\",    \"href\" : \"href\",    \"type\" : \"type\"  } ],  \"locationA\" : \"locationA\",  \"locationB\" : \"locationB\",  \"id\" : \"id\",  \"href\" : \"href\",  \"time\" : \"2000-01-23T04:56:07.000+00:00\",  \"status\" : \"status\"}, {  \"distance\" : \"distance\",  \"geographicLocation\" : {    \"id\" : \"id\",    \"href\" : \"href\"  },  \"intersection\" : [ {    \"name\" : \"name\",    \"geographicPoint\" : [ {      \"spatialRef\" : \"spatialRef\",      \"x\" : \"x\",      \"accuracy\" : \"accuracy\",      \"y\" : \"y\",      \"z\" : \"z\"    }, {      \"spatialRef\" : \"spatialRef\",      \"x\" : \"x\",      \"accuracy\" : \"accuracy\",      \"y\" : \"y\",      \"z\" : \"z\"    } ],    \"id\" : \"id\",    \"href\" : \"href\",    \"type\" : \"type\"  }, {    \"name\" : \"name\",    \"geographicPoint\" : [ {      \"spatialRef\" : \"spatialRef\",      \"x\" : \"x\",      \"accuracy\" : \"accuracy\",      \"y\" : \"y\",      \"z\" : \"z\"    }, {      \"spatialRef\" : \"spatialRef\",      \"x\" : \"x\",      \"accuracy\" : \"accuracy\",      \"y\" : \"y\",      \"z\" : \"z\"    } ],    \"id\" : \"id\",    \"href\" : \"href\",    \"type\" : \"type\"  } ],  \"locationA\" : \"locationA\",  \"locationB\" : \"locationB\",  \"id\" : \"id\",  \"href\" : \"href\",  \"time\" : \"2000-01-23T04:56:07.000+00:00\",  \"status\" : \"status\"} ]", List.class), HttpStatus.NOT_IMPLEMENTED);
             } catch (Exception e) {
                 log.error("Couldn't serialize response for content type application/json", e);
@@ -115,6 +127,11 @@ public class RetrieveLocationRelationApiController implements RetrieveLocationRe
         }
 
         return new ResponseEntity<List<RetrieveLocationRelation>>(HttpStatus.NOT_IMPLEMENTED);
+    }
+
+    public String checkFind (String input){
+        if (input!=null){return input;}
+        else{return "%";}
     }
 
 }

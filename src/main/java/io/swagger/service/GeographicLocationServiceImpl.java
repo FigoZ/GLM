@@ -55,5 +55,9 @@ public class GeographicLocationServiceImpl<T> extends newBaseServiceImpl {
         geographicLocationDao.save(item);
     }
 
-
+    @Transactional
+    public List<T> findByCriteria(List findResurses){
+        log.info(" Find by Criteria : " );
+        return (List<T>) List.of(geographicLocationDao.findByCriteria(findResurses));
+    }
 }

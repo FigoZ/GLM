@@ -22,6 +22,7 @@ import javax.validation.constraints.*;
 import javax.validation.Valid;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2018-12-22T19:02:40.482+03:00")
 
@@ -65,8 +66,20 @@ public class GeographicLocationApiController implements GeographicLocationApi {
         String accept = request.getHeader("Accept");
         if (accept != null && accept.contains("application/json")) {
             try {
-                // TODO: 10.01.2019 возврат всего, добавить возврат по полям
-               return new ResponseEntity<List<GeographicLocation>>(retriveGL.list(),HttpStatus.OK);
+                if (fields!=null){
+                    return new ResponseEntity<List<GeographicLocation>>(retriveGL.list(),HttpStatus.OK);}
+                else{
+                    List findResurses = new ArrayList();
+                    findResurses.add(checkFind(name));
+                    findResurses.add(checkFind(type));
+                    findResurses.add(checkFind(geographicPointAccuracy));
+                    findResurses.add(checkFind(geographicPointSpatialRef));
+                    findResurses.add(checkFind(geographicPointX));
+                    findResurses.add(checkFind(geographicPointY));
+                    findResurses.add(checkFind(geographicPointZ));
+
+                    return new ResponseEntity<List<GeographicLocation>>(retriveGL.findByCriteria(findResurses),HttpStatus.OK);
+                }
                 // return new ResponseEntity<List<GeographicLocation>>(objectMapper.readValue("[ {  \"name\" : \"name\",  \"geographicPoint\" : [ {    \"spatialRef\" : \"spatialRef\",    \"x\" : \"x\",    \"accuracy\" : \"accuracy\",    \"y\" : \"y\",    \"z\" : \"z\"  }, {    \"spatialRef\" : \"spatialRef\",    \"x\" : \"x\",    \"accuracy\" : \"accuracy\",    \"y\" : \"y\",    \"z\" : \"z\"  } ],  \"id\" : \"id\",  \"href\" : \"href\",  \"type\" : \"type\"}, {  \"name\" : \"name\",  \"geographicPoint\" : [ {    \"spatialRef\" : \"spatialRef\",    \"x\" : \"x\",    \"accuracy\" : \"accuracy\",    \"y\" : \"y\",    \"z\" : \"z\"  }, {    \"spatialRef\" : \"spatialRef\",    \"x\" : \"x\",    \"accuracy\" : \"accuracy\",    \"y\" : \"y\",    \"z\" : \"z\"  } ],  \"id\" : \"id\",  \"href\" : \"href\",  \"type\" : \"type\"} ]", List.class), HttpStatus.NOT_IMPLEMENTED);
             } catch (Exception e) {
                 log.error("Couldn't serialize response for content type application/json", e);
@@ -92,4 +105,8 @@ public class GeographicLocationApiController implements GeographicLocationApi {
         return new ResponseEntity<List<GeographicLocation>>(HttpStatus.NOT_IMPLEMENTED);
     }
 
+    public String checkFind (String input){
+        if (input!=null){return input;}
+        else{return "%";}
+    }
 }

@@ -56,5 +56,10 @@ public class RetrieveLocationRelationServiceImpl<T> extends newBaseServiceImpl {
         retrieveLocationRelationDao.save(item);
     }
 
+    @Transactional
+    public List<T> findByCriteria(List findResurses){
+        log.info(" Find by Criteria : " );
+        return (List<T>) List.of(retrieveLocationRelationDao.findByCriteria(findResurses));
+    }
 
 }
